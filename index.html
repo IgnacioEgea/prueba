@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div id="introFog" class="intro-fog" aria-live="polite">
+    <div class="fog-inner">
+      <div class="mist mist-one"></div>
+      <div class="mist mist-two"></div>
+      <button id="enterButton" class="enter-button" type="button">Pulsame</button>
+    </div>
+  </div>
+
   <main class="page-shell">
     <section class="hero" aria-labelledby="title">
       <div class="moon" aria-hidden="true"></div>
@@ -33,9 +41,111 @@
       </div>
     </article>
 
+    <section class="carousel-section" aria-label="Galería visual de la historia">
+      <div class="carousel-header">
+        <span class="eyebrow mini">Momentos del cuento</span>
+        <h3>Imágenes del bosque</h3>
+      </div>
+      <div class="carousel-shell">
+        <button class="carousel-btn prev" type="button" aria-label="Anterior">‹</button>
+        <div class="carousel-window">
+          <div id="carouselTrack" class="carousel-track" aria-live="polite"></div>
+        </div>
+        <button class="carousel-btn next" type="button" aria-label="Siguiente">›</button>
+      </div>
+    </section>
+
     <footer>Hecho con magia, rocío y mucho cariño 🍄💙</footer>
   </main>
+
   <script>
+    const storySlides = [
+      {
+        title: 'El bosque lunar',
+        text: 'Un claro mágico iluminado por la luna y los hongos brillantes.',
+        accent: '#a8d4d3',
+        emoji: '🌙'
+      },
+      {
+        title: 'Azul',
+        text: 'El pequeño pitufo con su gorro rojo y su mirada llena de ternura.',
+        accent: '#2f74d6',
+        emoji: '🧑‍🦰'
+      },
+      {
+        title: 'Trufa',
+        text: 'La trufa más bella del bosque, delicada, curiosa y profunda.',
+        accent: '#8b5e3c',
+        emoji: '🍄'
+      },
+      {
+        title: 'Su amor',
+        text: 'Juntos descubren un claro mágico donde la magia florece.',
+        accent: '#ffd166',
+        emoji: '💙'
+      }
+    ];
+
+    const track = document.getElementById('carouselTrack');
+    let currentSlide = 0;
+
+    function createSlide(slide, index) {
+      const item = document.createElement('article');
+      item.className = 'carousel-slide' + (index === 0 ? ' is-active' : '');
+      item.innerHTML = `
+        <div class="slide-art" style="background: linear-gradient(135deg, ${slide.accent}, rgba(255,255,255,0.22));">
+          <span>${slide.emoji}</span>
+        </div>
+        <div class="slide-copy">
+          <h4>${slide.title}</h4>
+          <p>${slide.text}</p>
+        </div>
+      `;
+      return item;
+    }
+
+    function renderCarousel() {
+      track.innerHTML = '';
+      storySlides.forEach((slide, index) => {
+        track.appendChild(createSlide(slide, index));
+      });
+      updateCarouselPosition();
+    }
+
+    function updateCarouselPosition() {
+      const slides = Array.from(track.children);
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('is-active', index === currentSlide);
+      });
+      const offset = -currentSlide * 100;
+      track.style.transform = `translateX(${offset}%)`;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % storySlides.length;
+      updateCarouselPosition();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + storySlides.length) % storySlides.length;
+      updateCarouselPosition();
+    }
+
+    document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);
+    document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);
+    setInterval(nextSlide, 4500);
+    renderCarousel();
+
+    const introFog = document.getElementById('introFog');
+    const enterButton = document.getElementById('enterButton');
+
+    enterButton.addEventListener('click', () => {
+      introFog.classList.add('is-closing');
+      setTimeout(() => {
+        introFog.style.display = 'none';
+      }, 1400);
+    });
+
     fetch('mensaje')
       .then(response => {
         if (!response.ok) throw new Error('No se pudo cargar la historia');
