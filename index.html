@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="La historia de Azul y Trufa, un cuento de amor en el bosque encantado.">
+  <title>Azul y Trufa 🍄💙</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero" aria-labelledby="title">
+      <div class="moon" aria-hidden="true"></div>
+      <div class="mushroom mushroom-one" aria-hidden="true">🍄</div>
+      <div class="mushroom mushroom-two" aria-hidden="true">🍄</div>
+      <p class="eyebrow">Un cuento del bosque encantado</p>
+      <h1 id="title">Azul <span>y</span> Trufa</h1>
+      <p class="subtitle">Dos seres diferentes. Un amor extraordinario.</p>
+      <a class="start-button" href="#historia">Leer la historia ↓</a>
+    </section>
+
+    <article id="historia" class="story-card">
+      <div class="story-heading">
+        <span class="ornament">✦</span>
+        <h2>La historia de Azul y Trufa</h2>
+        <span class="ornament">✦</span>
+      </div>
+      <div id="story" class="story-content" aria-live="polite">
+        <p>Cargando la historia...</p>
+      </div>
+    </article>
+
+    <footer>Hecho con magia, rocío y mucho cariño 🍄💙</footer>
+  </main>
+  <script>
+    fetch('mensaje')
+      .then(response => {
+        if (!response.ok) throw new Error('No se pudo cargar la historia');
+        return response.text();
+      })
+      .then(text => {
+        const story = document.querySelector('#story');
+        story.replaceChildren();
+        text.trim().split(/\n\s*\n/).forEach(block => {
+          const lines = block.trim().split('\n').map(line => line.trim()).filter(Boolean);
+          if (!lines.length) return;
+          if (lines.every(line => line.startsWith('-'))) {
+            const list = document.createElement('ul');
+            lines.forEach(line => {
+              const item = document.createElement('li');
+              item.textContent = line.replace(/^-\s*/, '');
+              list.appendChild(item);
+            });
+            story.appendChild(list);
+          } else {
+            const paragraph = document.createElement('p');
+            paragraph.textContent = lines.join(' ');
+            if (/^✨|^FIN/.test(paragraph.textContent)) paragraph.className = 'story-title';
+            if (/^"/.test(paragraph.textContent)) paragraph.className = 'quote';
+            story.appendChild(paragraph);
+          }
+        });
+      })
+      .catch(() => {
+        document.querySelector('#story').innerHTML = '<p>No se pudo cargar la historia. Puedes abrir el archivo <em>mensaje</em> del repositorio para leerla.</p>';
+      });
+  </script>
+</body>
+</html>
