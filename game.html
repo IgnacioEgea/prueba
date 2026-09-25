@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azul vs Trufas Malvadas</title>
+  <style>
+    :root {
+      --sky: #9bdcf4;
+      --sky2: #dff8ff;
+      --grass: #7bcf7d;
+      --blue: #2f74d6;
+      --blue-dark: #143d7c;
+      --gold: #f3d77e;
+      --red: #d84747;
+      --green: #5ccf6a;
+      --text: #1e1d2f;
+      --pixel: 4px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, #d8f3ff 0%, #a5d7f2 100%);
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+    }
+
+    .game-shell {
+      width: min(560px, 92vw);
+      text-align: center;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
+      color: var(--blue-dark);
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--blue-dark);
+      font-weight: bold;
+      border: 3px solid var(--blue-dark);
+      background: var(--gold);
+      padding: 0.55rem 0.9rem;
+      display: inline-block;
+    }
+
+    .hud {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0.5rem 0 1rem;
+      color: var(--blue-dark);
+    }
+
+    #game {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: linear-gradient(180deg, var(--sky) 0%, var(--sky2) 68%, var(--grass) 68%, #69cf77 100%);
+      border: 4px solid var(--blue-dark);
+      overflow: hidden;
+      image-rendering: pixelated;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .ground {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 70px;
+      background: repeating-linear-gradient(
+        90deg,
+        #69cf77 0,
+        #69cf77 16px,
+        #5bbf64 16px,
+        #5bbf64 32px
+      );
+      border-top: 4px solid var(--blue-dark);
+    }
+
+    .player {
+      position: absolute;
+      left: 200px;
+      bottom: 70px;
+      width: 42px;
+      height: 42px;
+      background: var(--blue);
+      border: 4px solid var(--blue-dark);
+      box-shadow: inset -4px 0 0 rgba(255,255,255,0.25);
+      z-index: 3;
+    }
+
+    .player::before,
+    .player::after {
+      content: "";
+      position: absolute;
+      background: #fff2a8;
+      width: 10px;
+      height: 10px;
+      top: 8px;
+      border-radius: 2px;
+    }
+
+    .player::before { left: 7px; }
+    .player::after { right: 7px; }
+
+    .trufa {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border: 4px solid var(--blue-dark);
+      z-index: 2;
+    }
+
+    .trufa.buena {
+      background: var(--green);
+    }
+
+    .trufa.mala {
+      background: var(--red);
+    }
+
+    .game-over {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(0,0,0,0.45);
+      z-index: 10;
+      text-align: center;
+      color: white;
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3vw, 2rem);
+    }
+
+    .game-over.show {
+      display: grid;
+    }
+
+    .game-over-box {
+      background: rgba(20, 61, 124, 0.9);
+      border: 4px solid #fff;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .game-over-box button {
+      margin-top: 1rem;
+      background: var(--gold);
+      color: var(--blue-dark);
+      border: 3px solid var(--blue-dark);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 520px) {
+      .topbar {
+        justify-content: center;
+      }
+      .back-link {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="game-shell">
+    <div class="topbar">
+      <h1>Azul vs Trufas</h1>
+      <a class="back-link" href="index.html">← Volver</a>
+    </div>
+
+    <div class="hud">
+      Puntuación: <span id="score">0</span> &nbsp;|&nbsp; Vidas: <span id="lives">3</span>
+    </div>
+
+    <div id="game" aria-label="Juego Azul y trufas">
+      <div class="player" id="player"></div>
+      <div class="ground"></div>
+      <div id="gameOver" class="game-over">
+        <div class="game-over-box">
+          <div>¡Game Over!</div>
+          <div style="margin-top: 0.5rem;">Puntuación: <span id="finalScore">0</span></div>
+          <button onclick="restartGame()">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const game = document.getElementById('game');
+    const player = document.getElementById('player');
+    const scoreEl = document.getElementById('score');
+    const livesEl = document.getElementById('lives');
+    const gameOverEl = document.getElementById('gameOver');
+    const finalScoreEl = document.getElementById('finalScore');
+
+    let playerX = 200;
+    let score = 0;
+    let lives = 3;
+    let gameRunning = true;
+    let trufas = [];
+
+    function updateHud() {
+      scoreEl.textContent = score;
+      livesEl.textContent = lives;
+    }
+
+    function movePlayer(direction) {
+      if (!gameRunning) return;
+      const step = 18;
+      playerX += direction * step;
+      const maxX = game.clientWidth - 42;
+      if (playerX < 0) playerX = 0;
+      if (playerX > maxX) playerX = maxX;
+      player.style.left = playerX + 'px';
+    }
+
+    document.addEventListener('keydown', (event) => {
+      const key = event.key.toLowerCase();
+      if (key === 'a' || key === 'arrowleft') movePlayer(-1);
+      if (key === 'd' || key === 'arrowright') movePlayer(1);
+    });
+
+    function createTrufa() {
+      if (!gameRunning) return;
+      const trufa = document.createElement('div');
+      const buena = Math.random() < 0.6;
+      trufa.className = `trufa ${buena ? 'buena' : 'mala'}`;
+      const left = Math.random() * (game.clientWidth - 28);
+      trufa.style.left = left + 'px';
+      trufa.style.top = '0px';
+      game.appendChild(trufa);
+
+      trufas.push({
+        el: trufa,
+        x: left,
+        y: 0,
+        buena,
+        speed: 2 + Math.random() * 2.2
+      });
+    }
+
+    function checkCollision(trufa) {
+      const playerLeft = playerX;
+      const playerRight = playerX + 42;
+      const playerTop = 350;
+      const playerBottom = 420;
+
+      const trufaLeft = trufa.x;
+      const trufaRight = trufa.x + 28;
+      const trufaTop = trufa.y;
+      const trufaBottom = trufa.y + 28;
+
+      return !(playerRight < trufaLeft || playerLeft > trufaRight || playerBottom < trufaTop || playerTop > trufaBottom);
+    }
+
+    function updateGame() {
+      if (!gameRunning) return;
+
+      for (let i = trufas.length - 1; i >= 0; i--) {
+        const t = trufas[i];
+        t.y += t.speed;
+        t.el.style.top = t.y + 'px';
+
+        if (checkCollision(t)) {
+          if (t.buena) {
+            score += 10;
+          } else {
+            lives -= 1;
+            if (lives <= 0) {
+              endGame();
+              break;
+            }
+          }
+          t.el.remove();
+          trufas.splice(i, 1);
+          updateHud();
+          continue;
+        }
+
+        if (t.y > 420) {
+          t.el.remove();
+          trufas.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(updateGame);
+    }
+
+    function endGame() {
+      gameRunning = false;
+      finalScoreEl.textContent = score;
+      gameOverEl.classList.add('show');
+    }
+
+    function restartGame() {
+      score = 0;
+      lives = 3;
+      playerX = 200;
+      gameRunning = true;
+      trufas.forEach((t) => t.el.remove());
+      trufas = [];
+      gameOverEl.classList.remove('show');
+      player.style.left = playerX + 'px';
+      updateHud();
+      requestAnimationFrame(updateGame);
+    }
+
+    function spawnLoop() {
+      if (!gameRunning) return;
+      createTrufa();
+      setTimeout(spawnLoop, 700);
+    }
+
+    updateHud();
+    player.style.left = playerX + 'px';
+    restartGame();
+    spawnLoop();
+  </script>
+</body>
+</html>
