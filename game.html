@@ -15,7 +15,6 @@
       --red: #d84747;
       --green: #5ccf6a;
       --text: #1e1d2f;
-      --pixel: 4px;
     }
 
     * { box-sizing: border-box; }
@@ -61,10 +60,31 @@
     }
 
     .hud {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
       font-size: 1.1rem;
       font-weight: 700;
       margin: 0.5rem 0 1rem;
       color: var(--blue-dark);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .score-center {
+      flex: 1;
+      text-align: center;
+      font-size: 1.5rem;
+      background: rgba(243, 215, 126, 0.6);
+      padding: 0.5rem 1rem;
+      border: 3px solid var(--blue-dark);
+      border-radius: 8px;
+      min-width: 150px;
+    }
+
+    .hud-side {
+      display: flex;
+      gap: 1rem;
     }
 
     #game {
@@ -104,6 +124,7 @@
       border: 4px solid var(--blue-dark);
       box-shadow: inset -4px 0 0 rgba(255,255,255,0.25);
       z-index: 3;
+      transition: left 0.08s linear;
     }
 
     .player::before,
@@ -171,11 +192,28 @@
       cursor: pointer;
     }
 
+    .lives-display {
+      font-size: 1.3rem;
+    }
+
+    .instructions {
+      font-size: 0.85rem;
+      color: var(--blue-dark);
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
     @media (max-width: 520px) {
       .topbar {
         justify-content: center;
       }
       .back-link {
+        width: 100%;
+      }
+      .hud {
+        flex-direction: column;
+      }
+      .score-center {
         width: 100%;
       }
     }
@@ -189,7 +227,12 @@
     </div>
 
     <div class="hud">
-      Puntuación: <span id="score">0</span> &nbsp;|&nbsp; Vidas: <span id="lives">3</span>
+      <div class="score-center">
+        Puntuación: <span id="score">0</span>
+      </div>
+      <div class="hud-side">
+        <div>Vidas: <span class="lives-display" id="lives">❤️❤️❤️</span></div>
+      </div>
     </div>
 
     <div id="game" aria-label="Juego Azul y trufas">
@@ -198,10 +241,14 @@
       <div id="gameOver" class="game-over">
         <div class="game-over-box">
           <div>¡Game Over!</div>
-          <div style="margin-top: 0.5rem;">Puntuación: <span id="finalScore">0</span></div>
+          <div style="margin-top: 0.5rem;">Puntuación Final: <span id="finalScore">0</span></div>
           <button onclick="restartGame()">Jugar otra vez</button>
         </div>
       </div>
+    </div>
+
+    <div class="instructions">
+      ⬅️ Usa las flechas direccionales para moverte ➡️ | Evita las trufas rojas | Ganas puntos cada segundo sin tocar trufas malas
     </div>
   </div>
 
@@ -218,16 +265,28 @@
     let lives = 3;
     let gameRunning = true;
     let trufas = [];
+    let keysPressed = {};
 
     function updateHud() {
       scoreEl.textContent = score;
-      livesEl.textContent = lives;
+      const hearts = [];
+      for (let i = 0; i < lives; i++) {
+        hearts.push('❤️');
+      }
+      livesEl.textContent = hearts.length > 0 ? hearts.join('') : '💔';
     }
 
-    function movePlayer(direction) {
+    function movePlayer() {
       if (!gameRunning) return;
       const step = 18;
-      playerX += direction * step;
+      
+      if (keysPressed['ArrowLeft']) {
+        playerX -= step;
+      }
+      if (keysPressed['ArrowRight']) {
+        playerX += step;
+      }
+
       const maxX = game.clientWidth - 42;
       if (playerX < 0) playerX = 0;
       if (playerX > maxX) playerX = maxX;
@@ -235,15 +294,29 @@
     }
 
     document.addEventListener('keydown', (event) => {
-      const key = event.key.toLowerCase();
-      if (key === 'a' || key === 'arrowleft') movePlayer(-1);
-      if (key === 'd' || key === 'arrowright') movePlayer(1);
+      if (event.key === 'ArrowLeft') {
+        keysPressed['ArrowLeft'] = true;
+        event.preventDefault();
+      }
+      if (event.key === 'ArrowRight') {
+        keysPressed['ArrowRight'] = true;
+        event.preventDefault();
+      }
+    });
+
+    document.addEventListener('keyup', (event) => {
+      if (event.key === 'ArrowLeft') {
+        keysPressed['ArrowLeft'] = false;
+      }
+      if (event.key === 'ArrowRight') {
+        keysPressed['ArrowRight'] = false;
+      }
     });
 
     function createTrufa() {
       if (!gameRunning) return;
       const trufa = document.createElement('div');
-      const buena = Math.random() < 0.6;
+      const buena = Math.random() < 0.35; // 65% malas, 35% buenas
       trufa.className = `trufa ${buena ? 'buena' : 'mala'}`;
       const left = Math.random() * (game.clientWidth - 28);
       trufa.style.left = left + 'px';
@@ -255,7 +328,7 @@
         x: left,
         y: 0,
         buena,
-        speed: 2 + Math.random() * 2.2
+        speed: 2.5 + Math.random() * 2
       });
     }
 
@@ -276,15 +349,15 @@
     function updateGame() {
       if (!gameRunning) return;
 
+      movePlayer();
+
       for (let i = trufas.length - 1; i >= 0; i--) {
         const t = trufas[i];
         t.y += t.speed;
         t.el.style.top = t.y + 'px';
 
         if (checkCollision(t)) {
-          if (t.buena) {
-            score += 10;
-          } else {
+          if (!t.buena) {
             lives -= 1;
             if (lives <= 0) {
               endGame();
@@ -306,6 +379,13 @@
       requestAnimationFrame(updateGame);
     }
 
+    function scoreIncrement() {
+      if (!gameRunning) return;
+      score += 1;
+      scoreEl.textContent = score;
+      setTimeout(scoreIncrement, 1000);
+    }
+
     function endGame() {
       gameRunning = false;
       finalScoreEl.textContent = score;
@@ -317,18 +397,20 @@
       lives = 3;
       playerX = 200;
       gameRunning = true;
+      keysPressed = {};
       trufas.forEach((t) => t.el.remove());
       trufas = [];
       gameOverEl.classList.remove('show');
       player.style.left = playerX + 'px';
       updateHud();
       requestAnimationFrame(updateGame);
+      scoreIncrement();
     }
 
     function spawnLoop() {
       if (!gameRunning) return;
       createTrufa();
-      setTimeout(spawnLoop, 700);
+      setTimeout(spawnLoop, 650);
     }
 
     updateHud();
