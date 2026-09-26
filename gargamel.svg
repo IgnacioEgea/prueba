@@ -1,0 +1,83 @@
+<svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="evilShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="3" dy="5" stdDeviation="4" flood-opacity="0.4"/>
+    </filter>
+    <linearGradient id="skinTone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4a373;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b8894a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="darkRobe" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d0d0d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="redBelt" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff3333;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#cc0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff3333;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Aura malévola -->
+  <circle cx="100" cy="140" r="75" fill="#ff6b35" opacity="0.08" filter="url(#evilShadow)"/>
+  
+  <!-- Robe base -->
+  <path d="M 60 100 L 50 280 Q 50 300 70 305 L 130 305 Q 150 300 150 280 L 140 100 Z" fill="url(#darkRobe)" filter="url(#evilShadow)"/>
+  
+  <!-- Robe patches (tattered) -->
+  <ellipse cx="75" cy="180" rx="8" ry="15" fill="#000" opacity="0.6" filter="url(#evilShadow)"/>
+  <ellipse cx="125" cy="200" rx="10" ry="12" fill="#000" opacity="0.6" filter="url(#evilShadow)"/>
+  <rect x="85" y="240" width="30" height="8" fill="#000" opacity="0.5" filter="url(#evilShadow)"/>
+  
+  <!-- Red belt -->
+  <ellipse cx="100" cy="140" rx="45" ry="18" fill="url(#redBelt)" filter="url(#evilShadow)"/>
+  <circle cx="110" cy="140" r="8" fill="#ffdd00" filter="url(#evilShadow)"/>
+  
+  <!-- Left leg (pointy shoe visible) -->
+  <rect x="65" y="280" width="16" height="28" fill="#1a1a1a" filter="url(#evilShadow)"/>
+  <path d="M 65 308 L 58 320 L 73 308 Z" fill="#cc0000" filter="url(#evilShadow)"/>
+  
+  <!-- Right leg (pointy shoe visible) -->
+  <rect x="119" y="280" width="16" height="28" fill="#1a1a1a" filter="url(#evilShadow)"/>
+  <path d="M 135 308 L 142 320 L 127 308 Z" fill="#cc0000" filter="url(#evilShadow)"/>
+  
+  <!-- Left arm (raised, scheming pose) -->
+  <path d="M 65 120 Q 50 100 45 70" stroke="#b8894a" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#evilShadow)"/>
+  <circle cx="42" cy="65" r="14" fill="url(#skinTone)" filter="url(#evilShadow)"/>
+  
+  <!-- Right arm (lowered) -->
+  <path d="M 135 125 Q 150 135 155 160" stroke="#b8894a" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#evilShadow)"/>
+  <circle cx="158" cy="165" r="14" fill="url(#skinTone)" filter="url(#evilShadow)"/>
+  
+  <!-- Neck -->
+  <rect x="88" y="90" width="24" height="18" fill="url(#skinTone)" filter="url(#evilShadow)"/>
+  
+  <!-- Head -->
+  <ellipse cx="100" cy="65" rx="35" ry="40" fill="url(#skinTone)" filter="url(#evilShadow)"/>
+  
+  <!-- Bald spot with hair -->
+  <ellipse cx="100" cy="35" rx="20" ry="18" fill="#b8894a" opacity="0.6" filter="url(#evilShadow)"/>
+  
+  <!-- Hair (wild, menacing) -->
+  <path d="M 68 50 Q 65 35 75 25 Q 80 20 85 22" fill="#2a2a2a" filter="url(#evilShadow)"/>
+  <path d="M 125 50 Q 135 35 125 25 Q 120 20 115 22" fill="#2a2a2a" filter="url(#evilShadow)"/>
+  
+  <!-- Hooked nose (menacing feature) -->
+  <path d="M 95 60 Q 100 68 102 72" stroke="#8b6f47" stroke-width="4" fill="none" stroke-linecap="round" filter="url(#evilShadow)"/>
+  
+  <!-- Eyes (evil gaze) -->
+  <ellipse cx="82" cy="58" rx="7" ry="9" fill="#ffdd00" filter="url(#evilShadow)"/>
+  <ellipse cx="118" cy="58" rx="7" ry="9" fill="#ffdd00" filter="url(#evilShadow)"/>
+  <circle cx="82" cy="60" r="4" fill="#000" filter="url(#evilShadow)"/>
+  <circle cx="118" cy="60" r="4" fill="#000" filter="url(#evilShadow)"/>
+  
+  <!-- Evil eyebrows (menacing angle) -->
+  <path d="M 75 50 Q 82 47 88 50" stroke="#2a2a2a" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#evilShadow)"/>
+  <path d="M 112 50 Q 118 47 125 50" stroke="#2a2a2a" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#evilShadow)"/>
+  
+  <!-- Sinister smile -->
+  <path d="M 88 75 Q 100 82 112 75" stroke="#2a2a2a" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#evilShadow)"/>
+  
+  <!-- Beard stubble -->
+  <path d="M 80 80 L 82 86 M 88 82 L 89 88 M 95 83 L 96 89" stroke="#2a2a2a" stroke-width="1" opacity="0.5" stroke-linecap="round"/>
+</svg>
