@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Azul y Trufa - Portada del cómic cartoon años 2000s.">
-  <title>Azul y Trufa | Portada</title>
+  <meta name="description" content="Azul y Trufa - Portada del cómic estilo Marvel vintage.">
+  <title>Azul y Trufa | Portada Cómic</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700;900&family=Caveat:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700;900&display=swap');
 
     :root {
       --primary-blue: #1f4fb8;
@@ -14,8 +14,8 @@
       --gold: #f5c86a;
       --forest-green: #2d5a4a;
       --cream: #fff9ed;
-      --dark-bg: #e8f4f8;
-      --outline: #000;
+      --black: #000;
+      --white: #fff;
     }
 
     * {
@@ -24,291 +24,30 @@
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Fredoka', 'Comic Sans MS', sans-serif;
-      background: linear-gradient(180deg, #c8e6f5 0%, #e8f4f8 50%, #b8dce8 100%);
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
       overflow-x: hidden;
-      color: var(--outline);
-      position: relative;
     }
 
-    /* Clouds decoration */
-    .clouds-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .comic-cover-container {
+      max-width: 600px;
       width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .cloud {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 100px;
-      opacity: 0.8;
-      animation: float 20s infinite;
-    }
-
-    .cloud::before,
-    .cloud::after {
-      content: '';
-      position: absolute;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 100px;
-    }
-
-    .cloud::before {
-      width: 50px;
-      height: 50px;
-      top: -25px;
-      left: 10px;
-    }
-
-    .cloud::after {
-      width: 60px;
-      height: 60px;
-      top: -15px;
-      right: 10px;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateX(0px); }
-      50% { transform: translateX(30px); }
-    }
-
-    /* Background trees */
-    .trees-background {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 40%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .portada-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Title with cartoon style */
-    .portada-header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      position: relative;
-      z-index: 2;
-    }
-
-    @keyframes popIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.5) rotate(-5deg);
-      }
-      50% {
-        transform: scale(1.1) rotate(2deg);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-      }
-    }
-
-    .portada-subtitle {
-      font-size: clamp(0.8rem, 2vw, 1rem);
-      color: var(--primary-blue);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 900;
-      margin-bottom: 0.3rem;
-      text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.8);
-      font-family: 'Caveat', cursive;
-      font-size: 1.3em;
-    }
-
-    .portada-header h1 {
-      font-size: clamp(2.5rem, 14vw, 7rem);
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      color: var(--primary-blue);
-      text-shadow: 
-        4px 4px 0 var(--accent-red),
-        8px 8px 0 var(--outline),
-        12px 12px 0 rgba(0, 0, 0, 0.2);
-      line-height: 0.95;
-      margin: 0.5rem 0;
-      text-transform: uppercase;
-      font-style: italic;
-      font-family: 'Fredoka', sans-serif;
-      transform: skewX(-8deg);
-    }
-
-    .portada-header h1 span {
-      color: var(--accent-red);
-      display: inline;
-      margin: 0 0.1em;
-    }
-
-    .portada-tagline {
-      font-size: clamp(0.75rem, 1.8vw, 0.95rem);
-      color: var(--forest-green);
-      font-style: italic;
-      font-weight: 700;
-      max-width: 700px;
-      letter-spacing: 0.02em;
-      line-height: 1.4;
-      text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.6);
-    }
-
-    /* Comic effect elements */
-    .comic-burst {
-      position: absolute;
-      top: -30px;
-      right: -50px;
-      width: 200px;
-      height: 200px;
-      pointer-events: none;
-      animation: rotate 20s linear infinite;
-      opacity: 0.3;
-      z-index: 1;
-    }
-
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .star-burst {
-      position: absolute;
-      font-size: 3rem;
-      animation: twirl 3s infinite;
-    }
-
-    @keyframes twirl {
-      0%, 100% { transform: scale(1) rotate(0deg); }
-      50% { transform: scale(1.2) rotate(20deg); }
-    }
-
-    /* Characters section */
-    .characters-section {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 0.5rem;
-      margin: 1rem 0 2rem 0;
       perspective: 1200px;
-      animation: fadeInScale 1s ease-out 0.3s both;
-      position: relative;
-      z-index: 2;
+      animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    @keyframes fadeInScale {
+    @keyframes slideInDown {
       from {
         opacity: 0;
-        transform: scale(0.7) translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .character {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: bounce 2s ease-in-out infinite;
-      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
-    }
-
-    .character:nth-child(1) {
-      animation-delay: 0s;
-      transform: scaleX(-1) rotateY(-15deg);
-      margin-right: -15px;
-    }
-
-    .character:nth-child(2) {
-      animation-delay: 0.2s;
-      transform: rotateY(15deg);
-      margin-left: -15px;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0) rotateY(var(--rotation)); }
-      50% { transform: translateY(-15px) rotateY(var(--rotation)); }
-    }
-
-    .character:nth-child(1) {
-      --rotation: -15deg;
-    }
-
-    .character:nth-child(2) {
-      --rotation: 15deg;
-    }
-
-    .character-art {
-      width: clamp(120px, 24vw, 280px);
-      height: clamp(160px, 32vw, 360px);
-      position: relative;
-      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
-      transition: all 0.4s ease;
-    }
-
-    .character:hover .character-art {
-      transform: scale(1.08) rotate(2deg);
-      filter: drop-shadow(0 15px 30px rgba(29, 79, 184, 0.3));
-    }
-
-    .character-name {
-      margin-top: 1rem;
-      font-size: clamp(0.9rem, 2vw, 1.4rem);
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 2;
-      text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.8);
-      font-family: 'Fredoka', sans-serif;
-    }
-
-    .azul .character-name {
-      color: var(--primary-blue);
-    }
-
-    .trufa .character-name {
-      color: var(--forest-green);
-    }
-
-    /* Menu section */
-    .menu-section {
-      margin-top: 2rem;
-      animation: slideUp 0.8s ease-out 0.8s both;
-      position: relative;
-      z-index: 2;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(-50px);
       }
       to {
         opacity: 1;
@@ -316,552 +55,537 @@
       }
     }
 
-    .dropdown-menu {
+    .comic-cover {
+      background: linear-gradient(135deg, var(--cream) 0%, #f5ede0 100%);
+      border: 6px solid var(--black);
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 2px var(--black),
+        12px 12px 0 rgba(0, 0, 0, 0.3);
       position: relative;
-      display: inline-block;
+      overflow: hidden;
+      aspect-ratio: 9/11;
+      display: flex;
+      flex-direction: column;
     }
 
-    .menu-button {
-      background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3d8a 100%);
-      color: white;
-      border: 4px solid var(--outline);
-      padding: 1rem 2.2rem;
-      font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+    /* HEADER BANNER */
+    .cover-header {
+      background: linear-gradient(90deg, var(--primary-blue) 0%, #1a3d8a 100%);
+      border-bottom: 4px solid var(--black);
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--white);
       font-weight: 900;
+      font-size: clamp(10px, 2vw, 14px);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      border-radius: 20px;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 
-        0 8px 0 rgba(0, 0, 0, 0.4),
-        0 0 0 3px var(--outline),
-        inset 0 -3px 0 rgba(0, 0, 0, 0.3);
+      letter-spacing: 0.15em;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .header-logo {
+      font-style: italic;
+      text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 12px;
+      font-size: clamp(9px, 1.5vw, 11px);
+    }
+
+    .issue-badge {
+      background: var(--accent-red);
+      color: var(--white);
+      padding: 4px 8px;
+      border: 2px solid var(--black);
+      font-weight: 900;
+      border-radius: 3px;
+    }
+
+    /* CORNER BOX */
+    .corner-box {
+      position: absolute;
+      top: 50px;
+      right: 12px;
+      width: 100px;
+      height: 120px;
+      border: 3px solid var(--black);
+      background: linear-gradient(135deg, var(--primary-blue) 0%, #2764b8 100%);
+      z-index: 15;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-family: 'Fredoka', sans-serif;
+      justify-content: center;
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 1px var(--white);
+    }
+
+    .corner-box svg {
+      width: 90%;
+      height: 90%;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    /* MAIN CONTENT AREA */
+    .cover-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 16px 12px;
       position: relative;
-      overflow: visible;
-    }
-
-    .menu-button::before {
-      content: '★';
-      font-size: 1.3em;
-      color: var(--gold);
-      animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .menu-button:hover {
-      background: linear-gradient(135deg, #1a3d8a 0%, var(--primary-blue) 100%);
-      transform: translateY(-4px) rotate(-2deg);
-      box-shadow: 
-        0 12px 0 rgba(0, 0, 0, 0.4),
-        0 0 0 3px var(--outline),
-        0 16px 30px rgba(29, 79, 184, 0.3),
-        inset 0 -3px 0 rgba(0, 0, 0, 0.3);
-    }
-
-    .menu-button:active {
-      transform: translateY(2px);
-      box-shadow: 
-        0 4px 0 rgba(0, 0, 0, 0.4),
-        0 0 0 3px var(--outline),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.3);
-    }
-
-    .menu-button::after {
-      content: "▼";
-      font-size: 0.6em;
-      transition: transform 0.3s ease;
-      display: inline-block;
-    }
-
-    .dropdown-menu.active .menu-button::after {
-      transform: rotate(180deg);
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background: linear-gradient(135deg, var(--cream) 0%, #fff 100%);
-      min-width: 300px;
-      box-shadow: 
-        0 12px 30px rgba(0, 0, 0, 0.3),
-        0 0 0 4px var(--outline);
-      border: 4px solid var(--outline);
-      border-radius: 15px;
-      z-index: 20;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-top: 1.5rem;
       overflow: hidden;
     }
 
-    .dropdown-menu.active .dropdown-content {
-      display: block;
-      animation: popDown 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* LOGO PRINCIPAL */
+    .cover-logo {
+      text-align: center;
+      margin-bottom: 12px;
+      animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s both;
+      position: relative;
+      z-index: 5;
     }
 
-    @keyframes popDown {
+    @keyframes popIn {
       0% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-20px) scale(0.8);
+        transform: scale(0.3) rotate(-10deg);
       }
       100% {
         opacity: 1;
-        transform: translateX(-50%) translateY(0) scale(1);
+        transform: scale(1) rotate(0deg);
       }
     }
 
-    .dropdown-item {
+    .logo-text {
+      font-size: clamp(28px, 8vw, 52px);
+      font-weight: 900;
+      color: var(--primary-blue);
+      text-shadow: 
+        4px 4px 0 var(--accent-red),
+        8px 8px 0 var(--black),
+        12px 12px 8px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      text-transform: uppercase;
+      font-style: italic;
+      transform: skewX(-5deg);
+      border: 4px solid var(--black);
+      padding: 8px 12px;
+      background: rgba(245, 193, 106, 0.6);
+    }
+
+    .logo-text span {
+      color: var(--accent-red);
+      font-size: 0.7em;
+    }
+
+    /* CENTRAL ARTWORK */
+    .cover-art {
+      flex: 1;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      color: var(--outline);
-      padding: 1.1rem 1.8rem;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: clamp(0.85rem, 1.6vw, 0.95rem);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-      transition: all 0.2s ease;
-      cursor: pointer;
+      justify-content: center;
+      padding: 16px;
       position: relative;
+      z-index: 3;
       overflow: hidden;
-      font-family: 'Fredoka', sans-serif;
     }
 
-    .dropdown-item::before {
-      content: "▸";
-      color: var(--accent-red);
-      font-weight: 900;
-      font-size: 1.2em;
-      transition: transform 0.2s ease;
+    .art-characters {
+      width: 100%;
+      height: 100%;
+      max-height: 400px;
+      animation: scaleIn 0.8s ease-out 0.2s both;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
     }
 
-    .dropdown-item:last-child {
-      border-bottom: none;
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
-    .dropdown-item:hover {
-      background: linear-gradient(90deg, rgba(29, 79, 184, 0.15), transparent);
-      padding-left: 2.3rem;
-      color: var(--primary-blue);
-      text-shadow: 0 0 5px rgba(29, 79, 184, 0.3);
-    }
-
-    .dropdown-item:hover::before {
-      transform: translateX(6px) scaleX(1.3);
-      color: var(--accent-red);
-    }
-
-    .dropdown-item.story::before { content: "📖"; font-size: 0.9em; }
-    .dropdown-item.game::before { content: "🎮"; font-size: 0.9em; }
-    .dropdown-item.comic::before { content: "💭"; font-size: 0.9em; }
-
-    /* Footer */
-    .footer-credits {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      text-align: center;
-      padding: 1.5rem 1rem 1rem;
-      background: linear-gradient(to top, rgba(232, 244, 248, 0.98), rgba(232, 244, 248, 0.8) 60%, transparent);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--forest-green);
-      text-transform: uppercase;
+    /* DRAMATIC BLURBS */
+    .cover-blurbs {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      position: relative;
       z-index: 5;
-      backdrop-filter: blur(5px);
-      border-top: 3px solid var(--outline);
     }
 
-    .footer-credits span {
-      display: inline-block;
-      font-size: 1.2rem;
-      font-style: italic;
-      color: var(--primary-blue);
+    .blurb {
+      background: var(--accent-red);
+      color: var(--white);
+      padding: 6px 10px;
+      border: 3px solid var(--black);
       font-weight: 900;
-      text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.8);
-      margin: 0 0.4em;
+      font-size: clamp(10px, 2vw, 13px);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: center;
+      transform: rotate(-2deg);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+      position: relative;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .characters-section {
-        gap: 0;
-        margin: 1rem 0 1.5rem 0;
-      }
-
-      .character:nth-child(1) {
-        margin-right: -10px;
-      }
-
-      .character:nth-child(2) {
-        margin-left: -10px;
-      }
-
-      .menu-button {
-        padding: 0.9rem 2rem;
-        font-size: 0.95rem;
-      }
-
-      .dropdown-content {
-        min-width: 280px;
-      }
-
-      .portada-header h1 {
-        transform: skewX(-5deg);
-      }
+    .blurb:nth-child(even) {
+      transform: rotate(2deg);
+      background: var(--primary-blue);
+      margin-left: 20px;
     }
 
+    .blurb::before {
+      content: '★';
+      color: var(--gold);
+      margin-right: 6px;
+      font-size: 1.2em;
+    }
+
+    /* COMICS CODE AUTHORITY */
+    .code-authority {
+      position: absolute;
+      top: 50px;
+      left: 12px;
+      width: 70px;
+      height: 85px;
+      border: 2px solid var(--black);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 12;
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .code-text {
+      text-align: center;
+      font-size: 7px;
+      font-weight: 900;
+      color: var(--black);
+      line-height: 1.1;
+      letter-spacing: 0.05em;
+    }
+
+    /* FOOTER */
+    .cover-footer {
+      border-top: 4px solid var(--black);
+      padding: 8px 10px;
+      background: linear-gradient(90deg, rgba(45, 90, 74, 0.1) 0%, transparent 100%);
+      text-align: center;
+      font-size: clamp(9px, 1.5vw, 11px);
+      font-weight: 700;
+      color: var(--black);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* BACKGROUND EFFECTS */
+    .cover-bg-effect {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0.1;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+    }
+
+    /* PAGES ILLUSION */
+    .comic-cover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -8px;
+      width: 8px;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+      z-index: 20;
+    }
+
+    /* NAV */
+    .nav-section {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3d8a 100%);
+      color: var(--white);
+      border: 3px solid var(--black);
+      border-radius: 8px;
+      font-weight: 900;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 8px 0 rgba(0, 0, 0, 0.4), 0 0 0 3px var(--black);
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px) rotate(-1deg);
+      box-shadow: 0 12px 0 rgba(0, 0, 0, 0.4), 0 0 0 3px var(--black), 0 16px 30px rgba(31, 79, 184, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4), 0 0 0 3px var(--black);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--accent-red) 0%, #b83535 100%);
+    }
+
+    /* RESPONSIVE */
     @media (max-width: 480px) {
-      .portada-container {
-        padding: 1rem;
+      .corner-box {
+        width: 80px;
+        height: 100px;
+        top: 45px;
+        right: 8px;
       }
 
-      .portada-header {
-        margin-bottom: 0.8rem;
+      .code-authority {
+        width: 60px;
+        height: 75px;
+        top: 45px;
+        left: 8px;
       }
 
-      .portada-header h1 {
-        font-size: 2rem;
-        transform: skewX(-3deg);
+      .logo-text {
+        font-size: 32px;
+        padding: 6px 10px;
       }
 
-      .portada-subtitle {
-        font-size: 1.1rem;
+      .cover-header {
+        font-size: 11px;
       }
 
-      .portada-tagline {
-        font-size: 0.7rem;
+      .header-meta {
+        gap: 8px;
       }
 
-      .characters-section {
-        flex-direction: column;
-        gap: 0;
-        margin: 0.8rem 0 1.2rem 0;
-      }
-
-      .character:nth-child(1) {
-        transform: scaleX(-1) rotateY(-8deg) translateY(20px);
-        margin-right: 0;
-      }
-
-      .character:nth-child(2) {
-        transform: rotateY(8deg) translateY(-20px);
-        margin-left: 0;
-      }
-
-      .menu-button {
-        padding: 0.8rem 1.8rem;
-        font-size: 0.85rem;
-      }
-
-      .footer-credits {
-        padding: 1rem 0.8rem 0.8rem;
-        font-size: 0.8rem;
-      }
-
-      .footer-credits span {
-        font-size: 1rem;
+      .issue-badge {
+        padding: 3px 6px;
+        font-size: 9px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Background clouds -->
-  <div class="clouds-bg" id="cloudsContainer"></div>
+  <div class="comic-cover-container">
+    <div class="comic-cover">
+      <!-- BACKGROUND EFFECT -->
+      <div class="cover-bg-effect"></div>
 
-  <!-- Background trees -->
-  <div class="trees-background">
-    <svg width="100%" height="100%" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice">
-      <!-- Tree 1 (left) -->
-      <ellipse cx="100" cy="120" rx="60" ry="100" fill="#2d5a4a" opacity="0.4"/>
-      <rect x="80" y="200" width="40" height="80" fill="#3d4630" opacity="0.4"/>
-      
-      <!-- Tree 2 (center) -->
-      <ellipse cx="600" cy="80" rx="80" ry="120" fill="#2d5a4a" opacity="0.3"/>
-      <rect x="570" y="180" width="60" height="100" fill="#3d4630" opacity="0.3"/>
-      
-      <!-- Tree 3 (right) -->
-      <ellipse cx="1100" cy="130" rx="70" ry="110" fill="#2d5a4a" opacity="0.35"/>
-      <rect x="1075" y="210" width="50" height="90" fill="#3d4630" opacity="0.35"/>
-    </svg>
-  </div>
-
-  <!-- Main container -->
-  <div class="portada-container">
-    <!-- Header -->
-    <div class="portada-header">
-      <div class="comic-burst">
-        <div class="star-burst">⭐</div>
+      <!-- HEADER BANNER -->
+      <div class="cover-header">
+        <span class="header-logo">🍄 Biblioteca Bosque Encantado 🍄</span>
+        <div class="header-meta">
+          <span class="issue-badge">Nº 1</span>
+          <span>DICIEMBRE</span>
+        </div>
       </div>
-      <p class="portada-subtitle">¡Presenta!</p>
-      <h1>Azul <span>y</span> Trufa</h1>
-      <p class="portada-tagline">Una épica cartoon de amor en el bosque encantado</p>
-    </div>
 
-    <!-- Characters -->
-    <div class="characters-section">
-      <!-- AZUL (Pitufo) -->
-      <div class="character azul">
-        <div class="character-art">
-          <svg viewBox="0 0 180 240" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
-            <!-- Sombra -->
-            <ellipse cx="90" cy="230" rx="50" ry="15" fill="#000" opacity="0.15"/>
-            
-            <!-- Cuerpo cartoon -->
-            <ellipse cx="90" cy="140" rx="42" ry="58" fill="var(--primary-blue)" stroke="var(--outline)" stroke-width="3"/>
-            
-            <!-- Piernas cortas y gruesas -->
-            <ellipse cx="70" cy="195" rx="14" ry="32" fill="var(--primary-blue)" stroke="var(--outline)" stroke-width="2.5"/>
-            <ellipse cx="110" cy="195" rx="14" ry="32" fill="var(--primary-blue)" stroke="var(--outline)" stroke-width="2.5"/>
-            
-            <!-- Zapatos enormes y cómicos -->
-            <ellipse cx="70" cy="228" rx="18" ry="12" fill="#000" stroke="var(--outline)" stroke-width="2"/>
-            <ellipse cx="110" cy="228" rx="18" ry="12" fill="#000" stroke="var(--outline)" stroke-width="2"/>
-            <ellipse cx="70" cy="224" rx="13" ry="7" fill="#333" opacity="0.6"/>
-            <ellipse cx="110" cy="224" rx="13" ry="7" fill="#333" opacity="0.6"/>
-            
-            <!-- Brazos levantados (celebración exagerada) -->
-            <ellipse cx="45" cy="105" rx="16" ry="45" fill="var(--primary-blue)" stroke="var(--outline)" stroke-width="2.5" transform="rotate(-35 45 125)"/>
-            <ellipse cx="135" cy="105" rx="16" ry="45" fill="var(--primary-blue)" stroke="var(--outline)" stroke-width="2.5" transform="rotate(35 135 125)"/>
-            
-            <!-- Manos grandes y divertidas -->
-            <circle cx="32" cy="60" r="14" fill="#f4a460" stroke="var(--outline)" stroke-width="2.5"/>
-            <circle cx="148" cy="60" r="14" fill="#f4a460" stroke="var(--outline)" stroke-width="2.5"/>
-            
-            <!-- Dedos -->
-            <circle cx="24" cy="50" r="4" fill="#f4a460"/>
-            <circle cx="23" cy="65" r="4" fill="#f4a460"/>
-            <circle cx="156" cy="50" r="4" fill="#f4a460"/>
-            <circle cx="157" cy="65" r="4" fill="#f4a460"/>
-            
-            <!-- Cuello -->
-            <rect x="80" y="82" width="20" height="18" fill="#f4a460" stroke="var(--outline)" stroke-width="2" rx="3"/>
-            
-            <!-- Cabeza grande y redonda -->
-            <circle cx="90" cy="58" r="35" fill="var(--primary-blue)" stroke="var(--outline)" stroke-width="3"/>
-            
-            <!-- Gorro rojo exagerado (tipo gnomo) -->
-            <ellipse cx="90" cy="30" rx="32" ry="26" fill="var(--accent-red)" stroke="var(--outline)" stroke-width="3"/>
-            <path d="M 62 32 Q 90 8 118 32" fill="#ff6b6b" stroke="var(--outline)" stroke-width="2"/>
-            
-            <!-- Pompom enorme y ridículo -->
-            <circle cx="90" cy="2" r="13" fill="var(--accent-red)" stroke="var(--outline)" stroke-width="2.5"/>
-            <circle cx="90" cy="2" r="9" fill="#ff9999" opacity="0.7"/>
-            <circle cx="87" cy="-2" r="4" fill="#fff" opacity="0.7"/>
-            <circle cx="93" cy="0" r="3" fill="#fff" opacity="0.5"/>
-            
-            <!-- Ojos ENORMES y expresivos (típico cartoon 2000s) -->
-            <circle cx="72" cy="48" r="10" fill="#fff" stroke="var(--outline)" stroke-width="2"/>
-            <circle cx="108" cy="48" r="10" fill="#fff" stroke="var(--outline)" stroke-width="2"/>
-            
-            <!-- Iris grandes que comunican emoción -->
-            <circle cx="72" cy="50" r="5.5" fill="#000"/>
-            <circle cx="108" cy="50" r="5.5" fill="#000"/>
-            
-            <!-- Brillos cartoonizados -->
-            <circle cx="75" cy="45" r="3.5" fill="#fff"/>
-            <circle cx="111" cy="45" r="3.5" fill="#fff"/>
-            <circle cx="70" cy="53" r="2" fill="#fff" opacity="0.5"/>
-            <circle cx="106" cy="53" r="2" fill="#fff" opacity="0.5"/>
-            
-            <!-- Cejas exageradas y divertidas -->
-            <path d="M 64 38 Q 72 32 80 36" stroke="var(--outline)" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M 100 36 Q 108 32 116 38" stroke="var(--outline)" stroke-width="3" fill="none" stroke-linecap="round"/>
-            
-            <!-- Nariz pequeña pero visible -->
-            <ellipse cx="90" cy="58" rx="4" ry="6" fill="#1f4fb8" stroke="var(--outline)" stroke-width="1.5"/>
-            
-            <!-- Boca enorme sonriendo (típico cartoon) -->
-            <path d="M 75 70 Q 90 82 105 70" stroke="var(--outline)" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <ellipse cx="90" cy="74" rx="16" ry="9" fill="#ffe4e1" opacity="0.8" stroke="var(--outline)" stroke-width="2"/>
-            <path d="M 75 70 Q 90 78 105 70" stroke="#ff6b9d" stroke-width="2" fill="none" stroke-linecap="round"/>
-            
-            <!-- Mejillas enorme rosas (exageración cartoon) -->
-            <circle cx="55" cy="60" r="11" fill="#ff9999" opacity="0.6"/>
-            <circle cx="125" cy="60" r="11" fill="#ff9999" opacity="0.6"/>
-            <circle cx="53" cy="62" r="6" fill="#ffaaaa" opacity="0.4"/>
-            <circle cx="127" cy="62" r="6" fill="#ffaaaa" opacity="0.4"/>
-            
-            <!-- Detalles de ropa -->
-            <g stroke="var(--outline)" stroke-width="1.5" fill="none">
-              <line x1="75" y1="155" x2="75" y2="175"/>
-              <line x1="105" y1="155" x2="105" y2="175"/>
+      <!-- COMICS CODE AUTHORITY SEAL -->
+      <div class="code-authority">
+        <div class="code-text">
+          APROBADO<br>POR LA<br>AUTORIDAD<br>DE CÓMICS
+        </div>
+      </div>
+
+      <!-- CORNER BOX (Mini character) -->
+      <div class="corner-box">
+        <svg viewBox="0 0 180 240" xmlns="http://www.w3.org/2000/svg">
+          <!-- Azul pequeño sonriendo -->
+          <ellipse cx="90" cy="140" rx="35" ry="50" fill="var(--primary-blue)" stroke="var(--white)" stroke-width="2"/>
+          <circle cx="90" cy="60" r="28" fill="var(--primary-blue)" stroke="var(--white)" stroke-width="2"/>
+          <circle cx="80" cy="52" r="8" fill="var(--white)"/>
+          <circle cx="100" cy="52" r="8" fill="var(--white)"/>
+          <circle cx="80" cy="52" r="4" fill="var(--black)"/>
+          <circle cx="100" cy="52" r="4" fill="var(--black)"/>
+          <ellipse cx="90" cy="22" rx="24" ry="18" fill="var(--accent-red)" stroke="var(--white)" stroke-width="2"/>
+          <circle cx="90" cy="2" r="10" fill="var(--accent-red)" stroke="var(--white)" stroke-width="2"/>
+          <path d="M 75 68 Q 90 80 105 68" stroke="var(--white)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="cover-content">
+        <!-- LOGO PRINCIPAL -->
+        <div class="cover-logo">
+          <div class="logo-text">AZUL <span>y</span> TRUFA</div>
+        </div>
+
+        <!-- DRAMATIC BLURBS -->
+        <div class="cover-blurbs">
+          <div class="blurb">¡Un Amor Imposible!</div>
+          <div class="blurb">En el Corazón del Bosque</div>
+          <div class="blurb">¡Acción y Magia Sin Límites!</div>
+        </div>
+
+        <!-- CENTRAL ARTWORK -->
+        <div class="cover-art">
+          <svg class="art-characters" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <!-- BACKGROUND EFFECT: Radiación cómica -->
+            <g opacity="0.15">
+              <line x1="400" y1="300" x2="100" y2="100" stroke="var(--black)" stroke-width="8"/>
+              <line x1="400" y1="300" x2="700" y2="100" stroke="var(--black)" stroke-width="8"/>
+              <line x1="400" y1="300" x2="150" y2="500" stroke="var(--black)" stroke-width="8"/>
+              <line x1="400" y1="300" x2="650" y2="500" stroke="var(--black)" stroke-width="8"/>
+            </g>
+
+            <!-- MOON/MAGICAL GLOW -->
+            <circle cx="650" cy="80" r="60" fill="var(--gold)" opacity="0.8" stroke="var(--black)" stroke-width="3"/>
+            <circle cx="650" cy="80" r="50" fill="none" stroke="var(--gold)" stroke-width="2" opacity="0.4" stroke-dasharray="5,5"/>
+
+            <!-- AZUL (LEFT) - Dynamic Pose -->
+            <g transform="translate(150, 200) scale(1.2)">
+              <!-- Shadow -->
+              <ellipse cx="0" cy="140" rx="40" ry="15" fill="var(--black)" opacity="0.2"/>
+              
+              <!-- Body reaching out -->
+              <ellipse cx="0" cy="80" rx="32" ry="45" fill="var(--primary-blue)" stroke="var(--black)" stroke-width="3"/>
+              
+              <!-- Left arm stretched -->
+              <ellipse cx="-45" cy="50" rx="15" ry="40" fill="var(--primary-blue)" stroke="var(--black)" stroke-width="2.5" transform="rotate(-40 -45 50)"/>
+              <circle cx="-70" cy="25" r="12" fill="#f4a460" stroke="var(--black)" stroke-width="2"/>
+              
+              <!-- Right arm up -->
+              <ellipse cx="45" cy="40" rx="14" ry="38" fill="var(--primary-blue)" stroke="var(--black)" stroke-width="2.5" transform="rotate(35 45 50)"/>
+              <circle cx="70" cy="10" r="12" fill="#f4a460" stroke="var(--black)" stroke-width="2"/>
+              
+              <!-- Neck -->
+              <rect x="-12" y="35" width="24" height="15" fill="#f4a460" stroke="var(--black)" stroke-width="2" rx="2"/>
+              
+              <!-- Head -->
+              <circle cx="0" cy="25" r="26" fill="var(--primary-blue)" stroke="var(--black)" stroke-width="3"/>
+              
+              <!-- Hat -->
+              <ellipse cx="0" cy="5" rx="24" ry="18" fill="var(--accent-red)" stroke="var(--black)" stroke-width="3"/>
+              <circle cx="0" cy="-8" r="10" fill="var(--accent-red)" stroke="var(--black)" stroke-width="2.5"/>
+              
+              <!-- Eyes wide (emotion) -->
+              <circle cx="-8" cy="20" r="9" fill="var(--white)" stroke="var(--black)" stroke-width="2"/>
+              <circle cx="8" cy="20" r="9" fill="var(--white)" stroke="var(--black)" stroke-width="2"/>
+              <circle cx="-8" cy="22" r="5" fill="var(--black)"/>
+              <circle cx="8" cy="22" r="5" fill="var(--black)"/>
+              <circle cx="-6" cy="18" r="3" fill="var(--white)"/>
+              <circle cx="10" cy="18" r="3" fill="var(--white)"/>
+              
+              <!-- Mouth open (joy/determination) -->
+              <path d="M -6 32 Q 0 38 6 32" stroke="var(--black)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="0" cy="34" rx="8" ry="6" fill="#ffe4e1" opacity="0.8"/>
+            </g>
+
+            <!-- TRUFA (RIGHT) - Dynamic Pose Mirror -->
+            <g transform="translate(650, 220) scale(1.15)">
+              <!-- Shadow -->
+              <ellipse cx="0" cy="140" rx="45" ry="16" fill="var(--black)" opacity="0.2"/>
+              
+              <!-- Roots down -->
+              <path d="M -30 130 Q -40 160 -35 190" stroke="#4a3728" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.8"/>
+              <path d="M 0 145 Q 0 170 0 200" stroke="#4a3728" stroke-width="5.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+              <path d="M 30 130 Q 40 160 35 190" stroke="#4a3728" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.8"/>
+              
+              <!-- Body (trufa shape) -->
+              <ellipse cx="0" cy="70" rx="55" ry="75" fill="#a78951" stroke="var(--black)" stroke-width="3"/>
+              
+              <!-- Texture spots -->
+              <circle cx="-25" cy="40" r="12" fill="#7d6637" opacity="0.4"/>
+              <circle cx="25" cy="35" r="10" fill="#7d6637" opacity="0.4"/>
+              <circle cx="-20" cy="100" r="11" fill="#7d6637" opacity="0.3"/>
+              <circle cx="20" cy="110" r="13" fill="#7d6637" opacity="0.3"/>
+              
+              <!-- Head -->
+              <circle cx="0" cy="15" r="32" fill="#a78951" stroke="var(--black)" stroke-width="3"/>
+              
+              <!-- Eyes big and expressive -->
+              <circle cx="-12" cy="10" r="10" fill="var(--white)" stroke="var(--black)" stroke-width="2.5"/>
+              <circle cx="12" cy="10" r="10" fill="var(--white)" stroke="var(--black)" stroke-width="2.5"/>
+              <circle cx="-12" cy="12" r="5.5" fill="var(--forest-green)"/>
+              <circle cx="12" cy="12" r="5.5" fill="var(--forest-green)"/>
+              <circle cx="-10" cy="8" r="3" fill="var(--white)"/>
+              <circle cx="14" cy="8" r="3" fill="var(--white)"/>
+              
+              <!-- Mouth sweet smile -->
+              <path d="M -6 28 Q 0 33 6 28" stroke="var(--black)" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="0" cy="30" rx="7" ry="5" fill="#ffe4e1" opacity="0.7"/>
+            </g>
+
+            <!-- MAGICAL CONNECTION - Lines between them -->
+            <g stroke="var(--gold)" stroke-width="3" opacity="0.6" stroke-dasharray="8,4">
+              <path d="M 250 300 Q 400 250 550 320"/>
+              <path d="M 280 350 Q 400 320 520 380"/>
+            </g>
+
+            <!-- DRAMATIC EXPLOSION/ENERGY EFFECT -->
+            <g stroke="var(--accent-red)" stroke-width="2" opacity="0.4" fill="none">
+              <circle cx="400" cy="320" r="80"/>
+              <circle cx="400" cy="320" r="120"/>
+              <circle cx="400" cy="320" r="160" stroke-dasharray="10,8"/>
             </g>
           </svg>
         </div>
-        <div class="character-name">Azul</div>
       </div>
 
-      <!-- TRUFA (Hongo/Trufa) -->
-      <div class="character trufa">
-        <div class="character-art">
-          <svg viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
-            <!-- Sombra -->
-            <ellipse cx="90" cy="265" rx="55" ry="18" fill="#000" opacity="0.15"/>
-            
-            <!-- Raíces principales curvas y divertidas -->
-            <path d="M 60 230 Q 40 250 30 275" stroke="#4a3728" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
-            <path d="M 90 240 Q 90 260 90 280" stroke="#4a3728" stroke-width="4.5" fill="none" stroke-linecap="round" opacity="0.8"/>
-            <path d="M 120 230 Q 140 250 150 275" stroke="#4a3728" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
-            
-            <!-- Raicillas secundarias -->
-            <path d="M 35 260 L 20 280" stroke="#3d3020" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
-            <path d="M 145 260 L 160 280" stroke="#3d3020" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
-            
-            <!-- Cuerpo principal (forma de trufa/seta redondeada) -->
-            <ellipse cx="90" cy="145" rx="70" ry="92" fill="#a78951" stroke="var(--outline)" stroke-width="3"/>
-            
-            <!-- Texturas de trufa (manchitas) -->
-            <circle cx="60" cy="110" r="15" fill="#7d6637" opacity="0.5"/>
-            <circle cx="120" cy="105" r="13" fill="#7d6637" opacity="0.5"/>
-            <circle cx="70" cy="170" r="14" fill="#7d6637" opacity="0.5"/>
-            <circle cx="110" cy="180" r="16" fill="#7d6637" opacity="0.5"/>
-            <circle cx="90" cy="210" r="12" fill="#7d6637" opacity="0.4"/>
-            <circle cx="55" cy="145" r="10" fill="#7d6637" opacity="0.4"/>
-            <circle cx="125" cy="140" r="11" fill="#7d6637" opacity="0.4"/>
-            
-            <!-- Brillo de trufa (lustre brillante) -->
-            <ellipse cx="65" cy="85" rx="28" ry="40" fill="#c9a861" opacity="0.4"/>
-            
-            <!-- Cabeza/Cara -->
-            <circle cx="90" cy="75" r="38" fill="#a78951" stroke="var(--outline)" stroke-width="3"/>
-            
-            <!-- Texturas de cara -->
-            <circle cx="65" cy="55" r="11" fill="#7d6637" opacity="0.3"/>
-            <circle cx="115" cy="60" r="10" fill="#7d6637" opacity="0.3"/>
-            
-            <!-- Ojos ENORMES exagerados (cartoon 2000s puro) -->
-            <circle cx="68" cy="68" r="11" fill="#fff" stroke="var(--outline)" stroke-width="2.5"/>
-            <circle cx="112" cy="68" r="11" fill="#fff" stroke="var(--outline)" stroke-width="2.5"/>
-            
-            <!-- Iris grandes y comunicativos -->
-            <circle cx="68" cy="70" r="6" fill="#2d5a4a"/>
-            <circle cx="112" cy="70" r="6" fill="#2d5a4a"/>
-            
-            <!-- Brillos cartoonizados -->
-            <circle cx="71" cy="65" r="4" fill="#fff"/>
-            <circle cx="115" cy="65" r="4" fill="#fff"/>
-            <circle cx="66" cy="75" r="2.5" fill="#fff" opacity="0.6"/>
-            <circle cx="110" cy="75" r="2.5" fill="#fff" opacity="0.6"/>
-            
-            <!-- Cejas delicadas (mostrando inocencia/ternura) -->
-            <path d="M 60 56 Q 68 50 76 54" stroke="var(--outline)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M 104 54 Q 112 50 120 56" stroke="var(--outline)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            
-            <!-- Nariz pequeña -->
-            <ellipse cx="90" cy="80" rx="4" ry="5" fill="#6b5637" stroke="var(--outline)" stroke-width="1.5"/>
-            
-            <!-- Boca adorable y pequeña -->
-            <path d="M 82 92 Q 90 99 98 92" stroke="var(--outline)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <ellipse cx="90" cy="95" rx="10" ry="6" fill="#ffe4e1" opacity="0.7" stroke="var(--outline)" stroke-width="1.5"/>
-            
-            <!-- Mejillas rosas sutiles -->
-            <circle cx="52" cy="75" r="10" fill="#d4a5a5" opacity="0.5"/>
-            <circle cx="128" cy="75" r="10" fill="#d4a5a5" opacity="0.5"/>
-            <circle cx="50" cy="77" r="5" fill="#e8c5c5" opacity="0.3"/>
-            <circle cx="130" cy="77" r="5" fill="#e8c5c5" opacity="0.3"/>
-            
-            <!-- Lunares/pecas adorables -->
-            <circle cx="75" cy="85" r="2" fill="#8b6f47" opacity="0.6"/>
-            <circle cx="105" cy="87" r="2" fill="#8b6f47" opacity="0.6"/>
-            
-            <!-- Aura mágica (línea punteada alrededor) -->
-            <circle cx="90" cy="145" r="78" fill="none" stroke="#d4a5a5" stroke-width="1.5" opacity="0.3" stroke-dasharray="5,5"/>
-            
-            <!-- Detalles de encanto -->
-            <g stroke="var(--outline)" stroke-width="1" fill="none" opacity="0.4">
-              <line x1="42" y1="140" x2="50" y2="135"/>
-              <line x1="138" y1="140" x2="130" y2="135"/>
-            </g>
-          </svg>
-        </div>
-        <div class="character-name">Trufa</div>
+      <!-- FOOTER -->
+      <div class="cover-footer">
+        Una Historia de Amor Encantado | Nº 1
       </div>
     </div>
 
-    <!-- Menu -->
-    <div class="menu-section">
-      <div class="dropdown-menu" id="dropdownMenu">
-        <button class="menu-button" id="menuButton">Explorar</button>
-        <div class="dropdown-content">
-          <a href="index-old.html" class="dropdown-item story" target="_blank">La Historia Completa</a>
-          <a href="game.html" class="dropdown-item game" target="_blank">Jugar Mini-Juego</a>
-          <a href="index.html" class="dropdown-item comic">Ver el Cómic</a>
-        </div>
+    <!-- NAVIGATION BUTTONS -->
+    <div class="nav-section">
+      <div class="nav-buttons">
+        <a href="index.html" class="btn">📖 Leer Cómic</a>
+        <a href="game.html" class="btn btn-secondary">🎮 Jugar</a>
       </div>
     </div>
-  </div>
-
-  <!-- Credits -->
-  <div class="footer-credits">
-    Creado por <span>Blus</span>
   </div>
 
   <script>
-    // Generate clouds
-    function generateClouds() {
-      const container = document.getElementById('cloudsContainer');
-      const cloudCount = 8;
+    // Pequeña animación de hover en la portada
+    const comicCover = document.querySelector('.comic-cover');
+    document.addEventListener('mousemove', (e) => {
+      const rect = comicCover.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
       
-      for (let i = 0; i < cloudCount; i++) {
-        const cloud = document.createElement('div');
-        cloud.className = 'cloud';
-        cloud.style.left = (Math.random() * 100) + '%';
-        cloud.style.top = (Math.random() * 40) + '%';
-        cloud.style.width = (40 + Math.random() * 60) + 'px';
-        cloud.style.height = (30 + Math.random() * 40) + 'px';
-        cloud.style.animationDuration = (15 + Math.random() * 15) + 's';
-        cloud.style.animationDelay = (Math.random() * 5) + 's';
-        container.appendChild(cloud);
-      }
-    }
-
-    generateClouds();
-
-    // Dropdown menu functionality
-    const menuButton = document.getElementById('menuButton');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    menuButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdownMenu.classList.toggle('active');
+      const rotateX = (y - 0.5) * 3;
+      const rotateY = (x - 0.5) * 3;
+      
+      comicCover.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
-    document.addEventListener('click', (e) => {
-      if (!dropdownMenu.contains(e.target)) {
-        dropdownMenu.classList.remove('active');
-      }
-    });
-
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-      item.addEventListener('click', () => {
-        dropdownMenu.classList.remove('active');
-      });
-    });
-
-    // Add fun easter egg interaction
-    document.querySelectorAll('.character-art svg').forEach(svg => {
-      svg.style.cursor = 'pointer';
-      svg.addEventListener('click', (e) => {
-        e.currentTarget.style.animation = 'spin 0.5s ease-in-out';
-        setTimeout(() => {
-          e.currentTarget.style.animation = '';
-        }, 500);
-      });
+    document.addEventListener('mouseleave', () => {
+      comicCover.style.transform = 'rotateX(0) rotateY(0)';
     });
   </script>
 </body>
